@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Tracker</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-btn {
+            border: none;
+            background-color: transparent;
+            color: cornflowerblue;
+        }
+
+        #chart-container,
+        #table-container {
+            width: 100%;
+            /* ここを修正 */
+            max-width: 800px;
+            margin: 10px 0;
+        }
+
+        #chart-container canvas {
+            width: 100% !important;
+            /* ここを追加 */
+        }
+
+        #chart-container {
+            flex: 1;
+        }
+
+        #table-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        #weightTable td {
+            padding: 0;
+        }
+
+        #weightTable th {
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            font-size: smaller;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        #add-row-btn {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart-container">
+        <canvas id="weightChart"></canvas>
+    </div>
+    <div id="table-container">
+        <table id="weightTable">
+            <thead>
+                <tr>
+                    <th>日にち</th>
+                    <th>時間</th>
+                    <th>体重 (kg)</th>
+                    <th>編集</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-07-30</td>
+                    <td>08:00</td>
+                    <td>70</td>
+                    <td><button class="edit-btn">edit</button></td>
+                </tr>
+                <tr>
+                    <td>2023-07-31</td>
+                    <td>09:00</td>
+                    <td>69</td>
+                    <td><button class="edit-btn">edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="add-row-btn">行を追加</button>
+
+    <div id="dialog-form" title="Edit Entry" style="display:none;">
+        <form>
+            <fieldset>
+                <label for="edit-date">日にち</label>
+                <input type="text" name="edit-date" id="edit-date" value="">
+                <label for="edit-time">時間</label>
+                <input type="text" name="edit-time" id="edit-time" value="">
+                <label for="edit-weight">体重 (kg)</label>
+                <input type="number" name="edit-weight" id="edit-weight" value="">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="dialog-add-form" title="Add Entry" style="display:none;">
+        <form>
+            <fieldset>
+                <label for="add-date">日にち</label>
+                <input type="text" name="add-date" id="add-date" value="">
+                <label for="add-time">時間</label>
+                <input type="text" name="add-time" id="add-time" value="">
+                <label for="add-weight">体重 (kg)</label>
+                <input type="number" name="add-weight" id="add-weight" value="">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.21.1/dist/date-fns.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
